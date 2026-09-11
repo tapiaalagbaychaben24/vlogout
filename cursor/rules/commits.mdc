@@ -1,0 +1,22 @@
+---
+alwaysApply: true
+---
+
+# Git commits
+
+- Only commit when the user asks.
+- Only push when the user asks. Never force-push.
+- Read `git status`, `git diff`, and `git log` before committing.
+- Match existing commit style: past tense, one sentence, explain why.
+- Split unrelated changes into separate commits. Never `git add .`.
+- Skip whitespace-only files and leftover `console.log`s unless asked.
+
+```bash
+# BAD — stage everything, one mixed commit
+git add .
+git commit -m "Update stuff"
+
+# GOOD — stage related files, one commit per concern
+git add app/wallet/page.tsx components/Wallet/WalletClientContainer.tsx
+git commit -m "Fixed wallet layout so balances stay visible on mobile."
+```
