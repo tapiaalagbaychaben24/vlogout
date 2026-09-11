@@ -65,7 +65,7 @@ export default function AccountInformationForm({
 					<div className="flex justify-between border-b p-4">
 						<h3 className="font-medium">Profile Picture</h3>
 
-						<div className="w-72">
+						<div className="w-74">
 							<div className="border rounded-md size-16"></div>
 						</div>
 					</div>
@@ -73,8 +73,8 @@ export default function AccountInformationForm({
 					<div className="flex justify-between border-b p-4">
 						<h3 className="font-medium">Cover Photo</h3>
 
-						<div className="w-72">
-							<div className="border rounded-md h-16 w-72"></div>
+						<div className="w-74">
+							<div className="border rounded-md h-16 w-74"></div>
 						</div>
 					</div>
 				</div>
@@ -88,14 +88,14 @@ export default function AccountInformationForm({
 								<Field
 									orientation="horizontal"
 									data-invalid={fieldState.invalid}
-									className="p-4 border-b"
+									className="gap-6 p-4 border-b"
 								>
 									<FieldLabel htmlFor={field.name}>Display Name</FieldLabel>
 
 									<Input
 										{...field}
 										id={field.name}
-										className="w-72"
+										className="w-74"
 										disabled={isPending}
 										aria-invalid={fieldState.invalid}
 										placeholder="Juan Dela Cruz"
@@ -116,14 +116,14 @@ export default function AccountInformationForm({
 								<Field
 									orientation="horizontal"
 									data-invalid={fieldState.invalid}
-									className="p-4 border-b"
+									className="gap-6 p-4 border-b"
 								>
 									<FieldLabel htmlFor={field.name}>Handle</FieldLabel>
 
 									<Input
 										{...field}
 										id={field.name}
-										className="w-72"
+										className="w-74"
 										disabled={isPending}
 										aria-invalid={fieldState.invalid}
 										placeholder="JuanDelaCruz"
@@ -144,7 +144,7 @@ export default function AccountInformationForm({
 								<Field
 									orientation="horizontal"
 									data-invalid={fieldState.invalid}
-									className="p-4 border-b"
+									className="gap-6 p-4 border-b"
 								>
 									<FieldContent>
 										<FieldLabel htmlFor={field.name}>Mobile number</FieldLabel>
@@ -158,7 +158,7 @@ export default function AccountInformationForm({
 									<Input
 										{...field}
 										id={field.name}
-										className="w-72"
+										className="w-74"
 										disabled={isPending}
 										aria-invalid={fieldState.invalid}
 										placeholder="09"
@@ -179,7 +179,7 @@ export default function AccountInformationForm({
 								<Field
 									orientation="horizontal"
 									data-invalid={fieldState.invalid}
-									className="p-4 border-b"
+									className="gap-6 p-4 border-b"
 								>
 									<FieldContent>
 										<FieldLabel htmlFor={field.name}>Bio</FieldLabel>
@@ -193,7 +193,7 @@ export default function AccountInformationForm({
 									<Textarea
 										{...field}
 										id={field.name}
-										className="w-72"
+										className="w-74"
 										disabled={isPending}
 										aria-invalid={fieldState.invalid}
 										placeholder="Content creator, entrepreneur, and coffee enthusiast."
@@ -214,7 +214,7 @@ export default function AccountInformationForm({
 								<Field
 									orientation="horizontal"
 									data-invalid={fieldState.invalid}
-									className="p-4 border-b"
+									className="gap-6 p-4 border-b"
 								>
 									<FieldContent>
 										<FieldLabel htmlFor={field.name}>About you</FieldLabel>
@@ -228,7 +228,7 @@ export default function AccountInformationForm({
 									<Textarea
 										{...field}
 										id={field.name}
-										className="w-72"
+										className="w-74"
 										disabled={isPending}
 										aria-invalid={fieldState.invalid}
 										placeholder="Filipino content creator sharing tech, lifestyle, and travel."
