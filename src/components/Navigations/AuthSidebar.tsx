@@ -22,6 +22,7 @@ import {
 	SidebarFooter,
 	SidebarGroup,
 	SidebarGroupLabel,
+	SidebarHeader,
 	SidebarMenu,
 	SidebarMenuButton,
 	SidebarMenuItem,
@@ -35,6 +36,7 @@ import {
 	CollapsibleContent,
 	CollapsibleTrigger,
 } from "../ui/collapsible";
+import UserMenu from "./UserMenu";
 
 type SideNavigationLinkProps = {
 	category: string;
@@ -153,6 +155,14 @@ export default function AuthSidebar({
 
 	return (
 		<Sidebar>
+			<SidebarHeader>
+				<Link to="/dashboard">
+					<div className="bg-primary rounded-full size-6 mx-1.5" />
+				</Link>
+
+				<UserMenu avatar="" name="Chaben Jade Alagbay" />
+			</SidebarHeader>
+
 			<SidebarContent>
 				{links.map((group) => {
 					if (group.category === "Admin" && !isAdmin) return null;
