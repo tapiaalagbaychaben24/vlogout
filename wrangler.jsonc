@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tanstack-start-app",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "a216d7fbd63f4e9bab0569c1f854bd19"
+    }
+  ]
+}

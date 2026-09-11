@@ -1,0 +1,270 @@
+import { HugeiconsIcon, type IconSvgElement } from "@hugeicons/react";
+import {
+	AccountSetting03Icon,
+	ArrowDown01Icon,
+	Copy01Icon,
+	CreditCardIcon,
+	DeliveryBox01Icon,
+	FavouriteIcon,
+	GitbookIcon,
+	Layers01Icon,
+	LinkSquare02Icon,
+	PromotionIcon,
+	ShoppingBag01Icon,
+} from "@hugeicons-pro/core-twotone-rounded";
+import { Link, useLocation } from "@tanstack/react-router";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useCopyToClipboard } from "react-use";
+import {
+	Sidebar,
+	SidebarContent,
+	SidebarFooter,
+	SidebarGroup,
+	SidebarGroupLabel,
+	SidebarMenu,
+	SidebarMenuButton,
+	SidebarMenuItem,
+	SidebarMenuSub,
+	SidebarMenuSubButton,
+	SidebarMenuSubItem,
+} from "@/components/ui/sidebar";
+import { Badge } from "../ui/badge";
+import {
+	Collapsible,
+	CollapsibleContent,
+	CollapsibleTrigger,
+} from "../ui/collapsible";
+
+type SideNavigationLinkProps = {
+	category: string;
+	links: {
+		label: string;
+		path: string;
+		icon: IconSvgElement;
+		hasSublinks: boolean;
+		isOpen?: boolean;
+		setIsOpen?: (isOpen: boolean) => void;
+		sublinks?: {
+			label: string;
+			path: string;
+		}[];
+	}[];
+};
+
+export default function AuthSidebar({
+	isAdmin,
+	handle,
+	pendingShoutoutsCount,
+}: {
+	isAdmin: boolean;
+	handle: string;
+	pendingShoutoutsCount: number;
+}) {
+	const { pathname } = useLocation();
+
+	const [isShopOpen, setIsShopOpen] = useState<boolean>(false);
+	const [, copy] = useCopyToClipboard();
+
+	function handleCopyProfileLink() {
+		const isLocal =
+			window.location.hostname === "localhost" ||
+			window.location.hostname === "127.0.0.1";
+
+		const baseUrl = isLocal
+			? window.location.origin
+			: "https://assets.vlogout.com";
+
+		copy(`${baseUrl}/${handle}`);
+		toast.success("Profile Link copied!");
+	}
+
+	const links: SideNavigationLinkProps[] = [
+		{
+			category: "DASHBOARD",
+			links: [
+				{
+					label: "Dashboard",
+					path: "/dashboard",
+					icon: Layers01Icon,
+					hasSublinks: false,
+				},
+				{
+					label: "Wallet",
+					path: "/wallet",
+					icon: CreditCardIcon,
+					hasSublinks: false,
+				},
+				{
+					label: "Purchases",
+					path: "/purchases",
+					icon: DeliveryBox01Icon,
+					hasSublinks: false,
+				},
+			],
+		},
+		{
+			category: "INFLUENCER",
+			links: [
+				{
+					label: "Supporters",
+					path: "/supporters",
+					icon: FavouriteIcon,
+					hasSublinks: false,
+				},
+				{
+					label: "Shoutouts",
+					path: "/shoutouts",
+					icon: PromotionIcon,
+					hasSublinks: false,
+				},
+				{
+					label: "Shop",
+					path: "/shop",
+					icon: ShoppingBag01Icon,
+					hasSublinks: true,
+					isOpen: isShopOpen,
+					setIsOpen: setIsShopOpen,
+					sublinks: [
+						{
+							label: "Products",
+							path: "/shop/products",
+						},
+						{
+							label: "Orders",
+							path: "/shop/orders",
+						},
+					],
+				},
+			],
+		},
+		{
+			category: "ADMIN",
+			links: [
+				{
+					label: "Ledger",
+					path: "/admin/ledger",
+					icon: GitbookIcon,
+					hasSublinks: false,
+				},
+			],
+		},
+	];
+
+	return (
+		<Sidebar>
+			<SidebarContent>
+				{links.map((group) => {
+					if (group.category === "Admin" && !isAdmin) return null;
+
+					return (
+						<SidebarGroup key={group.category}>
+							{group.category !== "DASHBOARD" && (
+								<SidebarGroupLabel>{group.category}</SidebarGroupLabel>
+							)}
+
+							<SidebarMenu>
+								{group.links.map((link) =>
+									!link.hasSublinks ? (
+										<SidebarMenu key={link.label}>
+											<SidebarMenuItem>
+												<SidebarMenuButton
+													isActive={pathname === link.path}
+													render={
+														<Link to={link.path}>
+															<HugeiconsIcon icon={link.icon} size={20} />{" "}
+															{link.label}
+															{link.path === "/shoutouts" &&
+																pendingShoutoutsCount > 0 && (
+																	<Badge className="ml-auto">
+																		{pendingShoutoutsCount}
+																	</Badge>
+																)}
+														</Link>
+													}
+												/>
+											</SidebarMenuItem>
+										</SidebarMenu>
+									) : (
+										<Collapsible
+											key={link.label}
+											open={link.isOpen}
+											onOpenChange={link.setIsOpen}
+										>
+											<CollapsibleTrigger
+												render={
+													<SidebarMenuButton>
+														<HugeiconsIcon icon={link.icon} size={20} />{" "}
+														{link.label}
+														<HugeiconsIcon
+															icon={ArrowDown01Icon}
+															size={20}
+															className={`ml-auto ${link.isOpen ? "rotate-180 transition-all duration-300" : ""}`}
+														/>
+													</SidebarMenuButton>
+												}
+											/>
+
+											<CollapsibleContent>
+												<SidebarMenuSub>
+													{link.sublinks?.map((sublink) => (
+														<SidebarMenuSubItem key={sublink.label}>
+															<SidebarMenuSubButton
+																isActive={pathname === sublink.path}
+																render={
+																	<Link to={sublink.path}>{sublink.label}</Link>
+																}
+															/>
+														</SidebarMenuSubItem>
+													))}
+												</SidebarMenuSub>
+											</CollapsibleContent>
+										</Collapsible>
+									),
+								)}
+							</SidebarMenu>
+						</SidebarGroup>
+					);
+				})}
+			</SidebarContent>
+
+			<SidebarFooter>
+				<SidebarGroup>
+					<SidebarMenu>
+						<SidebarMenuItem>
+							<SidebarMenuButton
+								render={
+									<Link to={`/`} target="_blank">
+										<HugeiconsIcon icon={LinkSquare02Icon} size={20} /> View
+										Profile Page
+									</Link>
+								}
+							></SidebarMenuButton>
+						</SidebarMenuItem>
+
+						<SidebarMenuItem>
+							<SidebarMenuButton
+								onClick={handleCopyProfileLink}
+								className="cursor-pointer"
+							>
+								<HugeiconsIcon icon={Copy01Icon} size={20} /> Copy Profile Link
+							</SidebarMenuButton>
+						</SidebarMenuItem>
+
+						<SidebarMenuItem>
+							<SidebarMenuButton
+								isActive={pathname.startsWith("/account")}
+								render={
+									<Link to="/account">
+										<HugeiconsIcon icon={AccountSetting03Icon} size={20} />{" "}
+										Account
+									</Link>
+								}
+							></SidebarMenuButton>
+						</SidebarMenuItem>
+					</SidebarMenu>
+				</SidebarGroup>
+			</SidebarFooter>
+		</Sidebar>
+	);
+}
