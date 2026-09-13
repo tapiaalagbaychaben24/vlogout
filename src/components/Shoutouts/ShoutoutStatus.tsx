@@ -45,7 +45,7 @@ export default function ShoutoutStatus({
 		mutationFn: (status: string) => updateShoutoutStatus({ data: { status } }),
 		onSuccess: async () => {
 			toast.success("Shoutout status updated");
-			await router.invalidate({
+			router.invalidate({
 				filter: (route) => route.routeId === "/_authenticated/shoutouts",
 			});
 		},

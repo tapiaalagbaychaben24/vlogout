@@ -1,9 +1,10 @@
 import { PhilippinePesoIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { formatPhp } from "#/lib/formatPhp";
 import SectionTitle from "../SectionTitle";
 import { Button } from "../ui/button";
 
-export default function OutstandingBalance() {
+export default function OutstandingBalance({ balance }: { balance: number }) {
 	return (
 		<div className="space-y-5">
 			<SectionTitle
@@ -22,7 +23,7 @@ export default function OutstandingBalance() {
 							strokeWidth={2}
 							className="text-muted-foreground"
 						/>
-						<span className="text-2xl font-semibold">0.00</span>
+						<span className="text-2xl font-semibold">{formatPhp(balance)}</span>
 					</div>
 				</div>
 

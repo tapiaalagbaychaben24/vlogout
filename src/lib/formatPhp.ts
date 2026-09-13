@@ -11,8 +11,5 @@ export function centavosToPesos(centavos: number) {
 }
 
 export function formatPhp(centavos: number) {
-	return (centavos / 100).toLocaleString("en-PH", {
-		style: "currency",
-		currency: "PHP",
-	});
+	return (centavos / 100).toLocaleString("en-PH");
 }

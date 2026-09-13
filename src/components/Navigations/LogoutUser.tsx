@@ -15,7 +15,7 @@ export default function LogoutUser() {
 			toast.error(error.message ?? "Could not log out");
 			return;
 		}
-		await router.invalidate();
+		router.invalidate();
 		await router.navigate({ to: "/login", replace: true });
 	}
 
