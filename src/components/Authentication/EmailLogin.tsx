@@ -36,8 +36,6 @@ export default function EmailLogin() {
 	});
 
 	async function onSubmit(data: z.infer<typeof loginSchema>) {
-		console.log(data);
-
 		if (loginStep === "Email") {
 			const { error } = await authClient.emailOtp.sendVerificationOtp({
 				email: data.email,
