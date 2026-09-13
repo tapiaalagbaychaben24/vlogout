@@ -55,12 +55,12 @@ type SideNavigationLinkProps = {
 };
 
 export default function AuthSidebar({
-	isAdmin,
-	handle,
+	isAccountAdmin,
+	accountHandle,
 	pendingShoutoutsCount,
 }: {
-	isAdmin: boolean;
-	handle: string;
+	isAccountAdmin: boolean;
+	accountHandle: string;
 	pendingShoutoutsCount: number;
 }) {
 	const { pathname } = useLocation();
@@ -69,15 +69,7 @@ export default function AuthSidebar({
 	const [, copy] = useCopyToClipboard();
 
 	function handleCopyProfileLink() {
-		const isLocal =
-			window.location.hostname === "localhost" ||
-			window.location.hostname === "127.0.0.1";
-
-		const baseUrl = isLocal
-			? window.location.origin
-			: "https://assets.vlogout.com";
-
-		copy(`${baseUrl}/${handle}`);
+		copy(`${window.location.origin}/${accountHandle}`);
 		toast.success("Profile Link copied!");
 	}
 
@@ -140,7 +132,10 @@ export default function AuthSidebar({
 				},
 			],
 		},
-		{
+	];
+
+	if (isAccountAdmin) {
+		links.push({
 			category: "ADMIN",
 			links: [
 				{
@@ -150,8 +145,8 @@ export default function AuthSidebar({
 					hasSublinks: false,
 				},
 			],
-		},
-	];
+		});
+	}
 
 	return (
 		<Sidebar>
@@ -165,7 +160,7 @@ export default function AuthSidebar({
 
 			<SidebarContent>
 				{links.map((group) => {
-					if (group.category === "Admin" && !isAdmin) return null;
+					if (group.category === "Admin" && !isAccountAdmin) return null;
 
 					return (
 						<SidebarGroup key={group.category}>
@@ -181,7 +176,7 @@ export default function AuthSidebar({
 												<SidebarMenuButton
 													isActive={pathname === link.path}
 													render={
-														<Link to={link.path}>
+														<Link to={link.path} preload="intent">
 															<HugeiconsIcon icon={link.icon} size={20} />{" "}
 															{link.label}
 															{link.path === "/shoutouts" &&
@@ -244,12 +239,16 @@ export default function AuthSidebar({
 						<SidebarMenuItem>
 							<SidebarMenuButton
 								render={
-									<Link to={`/`} target="_blank">
+									<Link
+										to="/$handle"
+										params={{ handle: accountHandle }}
+										target="_blank"
+									>
 										<HugeiconsIcon icon={LinkSquare02Icon} size={20} /> View
 										Profile Page
 									</Link>
 								}
-							></SidebarMenuButton>
+							/>
 						</SidebarMenuItem>
 
 						<SidebarMenuItem>
@@ -270,7 +269,7 @@ export default function AuthSidebar({
 										Account
 									</Link>
 								}
-							></SidebarMenuButton>
+							/>
 						</SidebarMenuItem>
 					</SidebarMenu>
 				</SidebarGroup>
