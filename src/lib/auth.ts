@@ -4,7 +4,9 @@ import { betterAuth } from "better-auth";
 import { emailOTP } from "better-auth/plugins";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
 import { createDb, schema } from "#/db";
+import { meta } from "#/db/schema/meta";
 import { profiles } from "#/db/schema/profiles";
+import { shoutoutSettings } from "#/db/schema/shoutouts";
 
 export function createAuth() {
 	const db = createDb(env.HYPERDRIVE.connectionString);
@@ -24,6 +26,20 @@ export function createAuth() {
 							.values({
 								id: user.id,
 								email: user.email,
+							})
+							.onConflictDoNothing();
+
+						await db
+							.insert(meta)
+							.values({
+								account: user.id,
+							})
+							.onConflictDoNothing();
+
+						await db
+							.insert(shoutoutSettings)
+							.values({
+								account: user.id,
 							})
 							.onConflictDoNothing();
 					},
