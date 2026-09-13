@@ -9,18 +9,18 @@ export default function DeleteAccount() {
 				description="Permanently delete your Vlogout account and data."
 			/>
 
-			<div className="bg-card border rounded-lg p-4">
-				<div className="space-y-3">
-					<div className="space-y-0.5">
-						<p className="font-medium">Request for account deletion</p>
+			<div className="bg-card border rounded-lg">
+				<div className="border-b py-3 px-4 space-y-0.5">
+					<p className="font-medium">Request for account deletion</p>
 
-						<p className="text-muted-foreground">
-							Deleting your account is permanent and cannot be undone. Your data
-							will be deleted within 30 days, but we may retain some metadata
-							and logs for longer where required or permitted by law.
-						</p>
-					</div>
+					<p className="text-muted-foreground">
+						Deleting your account is permanent and cannot be undone. Your data
+						will be deleted within 30 days, but we may retain some metadata and
+						logs for longer where required or permitted by law.
+					</p>
+				</div>
 
+				<div className="flex justify-end py-3 px-4">
 					<Button type="button" variant="destructive" size="sm">
 						Request to delete account
 					</Button>
