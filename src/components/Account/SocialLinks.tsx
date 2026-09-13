@@ -3,9 +3,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import FacebookIcon from "@/assets/socials/facebook.svg?react";
 import InstagramIcon from "@/assets/socials/instagram.svg?react";
 import LinkedInIcon from "@/assets/socials/linkedin.svg?react";
-import ThreadsIcon from "@/assets/socials/threads.svg?react";
 import TikTokIcon from "@/assets/socials/tiktok.svg?react";
-import XIcon from "@/assets/socials/x.svg?react";
 import YoutubeIcon from "@/assets/socials/youtube.svg?react";
 import SectionTitle from "../SectionTitle";
 import { Badge } from "../ui/badge";
@@ -102,46 +100,10 @@ export default function SocialLinks() {
 
 				<div className="flex justify-between items-center gap-8 bg-card border rounded-lg py-3 px-4">
 					<div className="flex items-center gap-3">
-						<XIcon className="size-7" />
-
-						<div>
-							<p className="font-medium">X (formerly Twitter)</p>
-
-							<p className="text-xs text-muted-foreground">Not connected</p>
-						</div>
-					</div>
-
-					<div>
-						<Button type="button" size="sm">
-							Connect
-						</Button>
-					</div>
-				</div>
-
-				<div className="flex justify-between items-center gap-8 bg-card border rounded-lg py-3 px-4">
-					<div className="flex items-center gap-3">
 						<LinkedInIcon className="size-7" />
 
 						<div>
 							<p className="font-medium">Linkedin</p>
-
-							<p className="text-xs text-muted-foreground">Not connected</p>
-						</div>
-					</div>
-
-					<div>
-						<Button type="button" size="sm">
-							Connect
-						</Button>
-					</div>
-				</div>
-
-				<div className="flex justify-between items-center gap-8 bg-card border rounded-lg py-3 px-4">
-					<div className="flex items-center gap-3">
-						<ThreadsIcon className="size-7" />
-
-						<div>
-							<p className="font-medium">Threads</p>
 
 							<p className="text-xs text-muted-foreground">Not connected</p>
 						</div>
