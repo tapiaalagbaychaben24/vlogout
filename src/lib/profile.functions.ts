@@ -1,11 +1,10 @@
 import { env } from "cloudflare:workers";
 import { createServerFn } from "@tanstack/react-start";
-import { getRequestHeaders } from "@tanstack/react-start/server";
 import { eq } from "drizzle-orm";
 import * as z from "zod";
 import { createDb } from "#/db";
 import { profiles } from "#/db/schema/profiles";
-import { createAuth } from "#/lib/auth";
+import { requireUserId } from "./auth.server";
 
 export const profileFormSchema = z.object({
 	name: z
@@ -21,18 +20,6 @@ export const profileFormSchema = z.object({
 	bio: z.string().max(160),
 	about: z.string().max(2000),
 });
-
-async function requireUserId() {
-	const session = await createAuth().api.getSession({
-		headers: getRequestHeaders(),
-	});
-
-	if (!session) {
-		throw new Error("Unauthorized");
-	}
-
-	return session.user.id;
-}
 
 export const getProfile = createServerFn({ method: "GET" }).handler(
 	async () => {
